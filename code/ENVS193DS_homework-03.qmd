@@ -35,10 +35,6 @@ library(modelsummary)
 drought_exp <- read_xlsx(path = here("data", 
                                      "Valliere_etal_EcoApps_Data.xlsx"),
                          sheet = "First Harvest")
-
-# quick look at data 
-str(drought_exp)
-class(drought_exp)
 ```
 
 ```{r}
@@ -62,46 +58,7 @@ drought_exp_clean <- drought_exp %>%
   relocate(water_treatment, .after = water) # moving water_treatment column after water
 ```
 
-# Question 1
-
-## **Creating models**
-
-#### Model 0 - null
-
-```{r}
-#null model
-model0 <- lm(total_g ~ 1, # formula
-             data = drought_exp_clean) # data frame
-```
-
-#### Model 1 - total biomass as a function of SLA, water treatment, and species
-
-```{r}
-# saturated model
-model1 <- lm(total_g ~ sla + water_treatment + species_name, #formula
-             data = drought_exp_clean) #dataframe
-```
-
-#### Model 2 - total biomass as a function of SLA and water treatment
-
-```{r}
-model2 <- lm(total_g ~ sla + water_treatment, #formula w correct predictors
-             data = drought_exp_clean) #dataframe
-```
-
-#### Model 3 - total biomass as a function of SLA and species
-
-```{r}
-model3 <- lm(total_g ~ sla + species_name, #formula
-             data = drought_exp_clean) #dataframe
-```
-
-#### Model 4 - **total biomass as a function of water treatment and species**
-
-```{r}
-model4 <- lm(total_g ~ water_treatment + species_name, #formula
-             data = drought_exp_clean) #dataframe
-```
+## **Problem 1. Multiple linear regression: model selection and construction** 
 
 ### a. Table of Models
 
@@ -122,7 +79,10 @@ To examine the influence of specific leaf area (mm^2^/g), watering level (well w
 ### c. Visualization
 
 ```{r}
-#first need to get model prediction values
+#first read in model I am using
+model4 <- lm(total_g ~ water_treatment + species_name, #formula
+             data = drought_exp_clean) #dataframe
+#then need to get model prediction values
 model_preds <- ggpredict(model4, #using model 4
                          terms = c("water_treatment", #predictor terms within model 4
                                    "species_name"))
@@ -153,7 +113,7 @@ ggplot() +
   theme_classic() +
 
   # Add labels 
-  labs(x = "Water Treatment", y = "Total Mass (mm2/g)", title = "Model Predictions vs. Data by Species and Watering Conditions") +
+  labs(x = "Water Treatment", y = "Total Biomass (mm2/g)", title = "Model Predictions vs. Data by Species and Watering Conditions") +
   
 # Remove legend
   theme(legend.position = "none") +
@@ -161,3 +121,11 @@ ggplot() +
 # Creating different panels for species
   facet_wrap(~species_name)
 ```
+
+**Figure 1: Well-watered plants tend to have higher total biomass than drought stressed plants.** The above graph shows differences in total plant biomass between different water treatment types and species. The lighter circular points indicate underlying data while the triangular points indicate the model prediction values for each group. Among all species, well watered groups have higher predicted biomass than drought-stressed groups. Species type also influences predicted total biomass.
+
+### e. Results
+
+Based on Akaike Information Criterion, water treatment and plant species are the predictors that best describe total mass (AICc = -156.2). These set of predictors were used in model 4, which was then used to perform a multiple linear regression. This regression indicated both species and water treatment type predict total biomass (g) (F (7,62) = 27.08, p \<0.001, a = 0.05, adjusted R2 = 0.7257). Across species type, plants that were well-watered had a total mass that was 0.12 (+-0.017) grams higher than drought-stressed plants. Across water treatments, *Grindelia camporum* showed the largest positive difference (+0.31; +- 0.032 grams, p \<0.001, a = 0.05) in total mass compared to the baseline species *Acmispon glaber*. Other species like *Encelia californica*, *Eschscholzia californica*, and *Nasella pulchra* also had significantly (p \< 0.001) higher total mass, while *Penstemon centranthifolius* did not show a statistically significant difference (p = 0.13).
+
+# Question 2
