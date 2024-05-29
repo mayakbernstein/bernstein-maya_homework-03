@@ -41,11 +41,78 @@ str(drought_exp)
 class(drought_exp)
 ```
 
-You can add options to executable code like this
-
 ```{r}
-#| echo: false
-2 * 2
+# cleaning
+drought_exp_clean <- drought_exp %>% 
+  clean_names() %>% # nicer column names
+  mutate(species_name = case_when( # adding column with species scientific names
+    species == "ENCCAL" ~ "Encelia californica", # bush sunflower
+    species == "ESCCAL" ~ "Eschscholzia californica", # California poppy
+    species == "PENCEN" ~ "Penstemon centranthifolius", # Scarlet bugler
+    species == "GRICAM" ~ "Grindelia camporum", # great valley gumweed
+    species == "SALLEU" ~ "Salvia leucophylla", # Purple sage
+    species == "STIPUL" ~ "Nasella pulchra", # Purple needlegrass
+    species == "LOTSCO" ~ "Acmispon glaber" # deerweed
+  )) %>% 
+  relocate(species_name, .after = species) %>% # moving species_name column after species
+  mutate(water_treatment = case_when( # adding column with full treatment names
+    water == "WW" ~ "Well watered",
+    water == "DS" ~ "Drought stressed"
+  )) %>% 
+  relocate(water_treatment, .after = water) # moving water_treatment column after water
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+#  Question 1
+
+## **Creating models**
+
+#### Model 0 - null
+
+```{r}
+#null model
+model0 <- lm(total_g ~ 1, # formula
+             data = drought_exp_clean) # data frame
+```
+
+#### Model 1 -  total biomass as a function of SLA, water treatment, and species
+
+```{r}
+# saturated model
+model1 <- lm(total_g ~ sla + water_treatment + species_name, #formula
+             data = drought_exp_clean) #dataframe
+```
+
+#### Model 2 - total biomass as a function of SLA and water treatment
+
+```{r}
+model2 <- lm(total_g ~ sla + water_treatment, #formula w correct predictors
+             data = drought_exp_clean) #dataframe
+```
+
+#### Model 3 - total biomass as a function of SLA and species
+
+```{r}
+model3 <- lm(total_g ~ sla + species_name, #formula
+             data = drought_exp_clean) #dataframe
+```
+
+#### Model 4 - **total biomass as a function of water treatment and species**
+
+```{r}
+model4 <- lm(total_g ~ water_treatment + species_name, #formula
+             data = drought_exp_clean) #dataframe
+```
+
+### Table of Models 
+
+```{r}
+#compare the models
+model_comparison <- modelsummary::modelsummary( # this function takes a list of models
+  list( 
+    "null" = model0, # "model name" = model object for all below 
+    "model 1" = model1,
+    "model 2" = model2,
+    "model 3" = model3,
+    "model 4" = model4))
+model_comparison
+```
