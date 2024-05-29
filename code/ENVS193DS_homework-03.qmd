@@ -87,7 +87,6 @@ model1 <- lm(total_g ~ sla + water_treatment + species_name, #formula
 ```{r}
 model2 <- lm(total_g ~ sla + water_treatment, #formula w correct predictors
              data = drought_exp_clean) #dataframe
-plot(model2)
 ```
 
 #### Model 3 - total biomass as a function of SLA and species
@@ -106,19 +105,15 @@ model4 <- lm(total_g ~ water_treatment + species_name, #formula
 
 ### a. Table of Models
 
-```{r}
-#compare the models
-model_comparison <- modelsummary::modelsummary( # this function takes a list of models
-  list( 
-    "null" = model0, # "model name" = model object for all below 
-    "model 1" = model1,
-    "model 2" = model2,
-    "model 3" = model3,
-    "model 4" = model4))
-model_comparison
-```
+|                                                                                                                                                                                                                                                                                                                                                                        |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Table 1: Comparison of Regression Models**. This table shows the five regression models used to predict total biomass (g): "Null," "Model 1," "Model 2," "Model 3," and "Model 4." Each column is a seperate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model.  |
 
-**Table 1:** **Comparison of Regression Models.** This table compares five regression models: "null," "model 1," "model 2," "model 3," and "model 4." The columns represent the different models. The rows include the intercept, coefficients for the predictor variables (`sla`, `water_treatmentWell watered`, various `species_name` variables), and their standard errors in parentheses. Summary statistics provided for each model include the number of observations (Num.Obs.), R-squared (R2), adjusted R-squared (R2 Adj.), Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), log-likelihood (Log.Lik.), and root mean squared error (RMSE).
+| Predictors                                              | Null | Model 1 | Model 2 | Model 3 | Model 4 |
+|------------|------------|------------|------------|------------|------------|
+| **Specific Leaf Area** (mm^2^/g)                        |      | ✓       | ✓       | ✓       |         |
+| **Watering Level (well watered vs drought conditions)** |      | ✓       | ✓       |         | ✓       |
+| **Species Type**                                        |      | ✓       |         | ✓       | ✓       |
 
 ### b. Statistical Methods
 
@@ -127,33 +122,42 @@ To examine the influence of specific leaf area (mm^2^/g), watering level (well w
 ### c. Visualization
 
 ```{r}
-# creating new data frame of model predictions for plotting
-model_preds_for_plotting <- model_preds %>% 
-  rename(sla = x, # renaming columns to make this easier to use
-         water_treatment = group,
-         species_name = facet)
+#first need to get model prediction values
+model_preds <- ggpredict(model4, #using model 4
+                         terms = c("water_treatment", #predictor terms within model 4
+                                   "species_name"))
+```
 
+```{r}
+#make new dataframe 
+model_preds_for_plotting <- model_preds %>%  #make a new df from the model predictions df
+  rename(water_treatment = x, # renaming columns to make them match drought_exp_clean names
+         species_name = group)
 ggplot() +
-  # underlying data
-  geom_point(data = drought_exp_clean,
-             aes(x = sla,
-                 y = total_g,
-                 color = water_treatment)) +
-  # model prediction 95% CI ribbon
-  geom_ribbon(data = model_preds_for_plotting,
-              aes(x = sla, 
-                  y = predicted,
-                  ymin = conf.low,
-                  ymax = conf.high,
-                  fill = water_treatment),
-              alpha = 0.2) +
-  # model prediction lines
-  geom_line(data = model_preds_for_plotting,
-            aes(x = sla, 
-                y = predicted,
-                color = water_treatment)) +
-  # cleaner theme
+# underlying data
+  geom_point(data = drought_exp_clean, #using the clean data
+             aes(x = water_treatment, # x axis is water treatment
+                 y = total_g, #y axis is total biomass 
+                 color = water_treatment), #color the points based on water treatment
+             alpha = 0.25)+ #make the underlying points more transparent
+  scale_color_manual(values = c("#C4A484", "#228B22"))+  # Specify colors for each group
+
+#model data
+   geom_point(data = model_preds_for_plotting, #using dataframe I made above
+             aes(x = water_treatment, # x axis is water treatment
+                 y = predicted, #y axis is predicted total biomass (g)
+                 color = water_treatment), #color based on water treatment 
+             size = 2.5,  # Making model prediction points larger for visibility
+             shape = 17) +  # Changing shape to triangle for better differentiation
+  # Cleaner theme
   theme_classic() +
-  # creating different panels for species
-  facet_wrap(~species_name) 
+
+  # Add labels 
+  labs(x = "Water Treatment", y = "Total Mass (mm2/g)", title = "Model Predictions vs. Data by Species and Watering Conditions") +
+  
+# Remove legend
+  theme(legend.position = "none") +
+  
+# Creating different panels for species
+  facet_wrap(~species_name)
 ```
