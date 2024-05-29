@@ -9,7 +9,7 @@ execute: # for all code chunks
     message: FALSE # do not display messages
 ---
 
-## Link to Repository *add link* 
+## Link to Repository *add link*
 
 ```{r}
 # general use
@@ -62,7 +62,7 @@ drought_exp_clean <- drought_exp %>%
   relocate(water_treatment, .after = water) # moving water_treatment column after water
 ```
 
-#  Question 1
+# Question 1
 
 ## **Creating models**
 
@@ -74,7 +74,7 @@ model0 <- lm(total_g ~ 1, # formula
              data = drought_exp_clean) # data frame
 ```
 
-#### Model 1 -  total biomass as a function of SLA, water treatment, and species
+#### Model 1 - total biomass as a function of SLA, water treatment, and species
 
 ```{r}
 # saturated model
@@ -87,6 +87,7 @@ model1 <- lm(total_g ~ sla + water_treatment + species_name, #formula
 ```{r}
 model2 <- lm(total_g ~ sla + water_treatment, #formula w correct predictors
              data = drought_exp_clean) #dataframe
+plot(model2)
 ```
 
 #### Model 3 - total biomass as a function of SLA and species
@@ -103,7 +104,7 @@ model4 <- lm(total_g ~ water_treatment + species_name, #formula
              data = drought_exp_clean) #dataframe
 ```
 
-### Table of Models 
+### a. Table of Models
 
 ```{r}
 #compare the models
@@ -115,4 +116,44 @@ model_comparison <- modelsummary::modelsummary( # this function takes a list of 
     "model 3" = model3,
     "model 4" = model4))
 model_comparison
+```
+
+**Table 1:** **Comparison of Regression Models.** This table compares five regression models: "null," "model 1," "model 2," "model 3," and "model 4." The columns represent the different models. The rows include the intercept, coefficients for the predictor variables (`sla`, `water_treatmentWell watered`, various `species_name` variables), and their standard errors in parentheses. Summary statistics provided for each model include the number of observations (Num.Obs.), R-squared (R2), adjusted R-squared (R2 Adj.), Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), log-likelihood (Log.Lik.), and root mean squared error (RMSE).
+
+### b. Statistical Methods
+
+To examine the influence of specific leaf area (mm^2^/g), watering level (well watered vs drought stressed, and species type on total biomass, I compared the five models outlined in the table above in order to determine which predictor variables best influence total biomass. I used the `model.sel` function from the `MuMIn` package which uses corrected (for smaller sample size) Akaike Information Criterion (AICc) to rank the provided models according to their AICc values. Model 4, which looks at total biomass as a function of water treatment and species, has the lowest AICc value (-156.2) and highest weight (0.772), indicating it is the best model among those compared. To evaluate linear model assumptions, I used the `plot` for each model to evaluate the diagnostic plots for residuals vs fitted values, the Normal Q-Q plot, the Scale-Location plot, and the residuals vs. leverage plot. These visual checks confirmed the models were homoscedastic, normally distributed, and linear.
+
+### c. Visualization
+
+```{r}
+# creating new data frame of model predictions for plotting
+model_preds_for_plotting <- model_preds %>% 
+  rename(sla = x, # renaming columns to make this easier to use
+         water_treatment = group,
+         species_name = facet)
+
+ggplot() +
+  # underlying data
+  geom_point(data = drought_exp_clean,
+             aes(x = sla,
+                 y = total_g,
+                 color = water_treatment)) +
+  # model prediction 95% CI ribbon
+  geom_ribbon(data = model_preds_for_plotting,
+              aes(x = sla, 
+                  y = predicted,
+                  ymin = conf.low,
+                  ymax = conf.high,
+                  fill = water_treatment),
+              alpha = 0.2) +
+  # model prediction lines
+  geom_line(data = model_preds_for_plotting,
+            aes(x = sla, 
+                y = predicted,
+                color = water_treatment)) +
+  # cleaner theme
+  theme_classic() +
+  # creating different panels for species
+  facet_wrap(~species_name) 
 ```
