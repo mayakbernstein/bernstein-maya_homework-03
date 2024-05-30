@@ -128,4 +128,14 @@ ggplot() +
 
 Based on Akaike Information Criterion, water treatment and plant species are the predictors that best describe total mass (AICc = -156.2). These set of predictors were used in model 4, which was then used to perform a multiple linear regression. This regression indicated both species and water treatment type predict total biomass (g) (F (7,62) = 27.08, p \<0.001, a = 0.05, adjusted R2 = 0.7257). Across species type, plants that were well-watered had a total mass that was 0.12 (+-0.017) grams higher than drought-stressed plants. Across water treatments, *Grindelia camporum* showed the largest positive difference (+0.31; +- 0.032 grams, p \<0.001, a = 0.05) in total mass compared to the baseline species *Acmispon glaber*. Other species like *Encelia californica*, *Eschscholzia californica*, and *Nasella pulchra* also had significantly (p \< 0.001) higher total mass, while *Penstemon centranthifolius* did not show a statistically significant difference (p = 0.13).
 
-# Question 2
+## **Problem 2. Affective visualization**
+
+### a. Affective Visualization for My Data
+
+My data is all about tracking how my new skincare routine is affecting the number of breakouts on my face. I think a really cool data visualization I could do would be a photo collage/slideshow showing the progression of my skin since I started the treatment the day I started collecting data. I, however, did not take photos of my face every day, so instead I think I could pair some photos that I do have with the data that I collected on a graph for a blended visualization.
+
+### b. Visualization Sketch
+
+![](images/Breakout Visualization Draft-1.jpg)
+
+### c. Visualization Draft
