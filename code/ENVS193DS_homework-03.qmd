@@ -166,10 +166,11 @@ theme(legend.position = "top") +
  # Remove space between x-axis and bars
   scale_y_continuous(expand = c(0, 0))+
   scale_x_continuous(expand = c(0,0)) 
-
+# note: not actually showing this output here because I took it and edited it further
+# in canva, which is the image you see below! 
 ```
 
-### ![](images/clipboard-2891628687.png)
+### ![](images/clipboard-3676468120.png)
 
 ### d. Artistic Statement
 
