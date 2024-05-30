@@ -66,9 +66,9 @@ drought_exp_clean <- drought_exp %>%
 
 ### a. Table of Models
 
-|                                                                                                                                                                                                                                                                                                                                                                        |
-|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Table 1: Comparison of Regression Models**. This table shows the five regression models used to predict total biomass (g): "Null," "Model 1," "Model 2," "Model 3," and "Model 4." Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model.  |
+|                                                                                                                                                                                                                                                                                                                                                                       |
+|------------------------------------------------------------------------|
+| **Table 1: Comparison of Regression Models**. This table shows the five regression models used to predict total biomass (g): "Null," "Model 1," "Model 2," "Model 3," and "Model 4." Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model. |
 
 | Predictors                                              | Null | Model 1 | Model 2 | Model 3 | Model 4 |
 |------------|------------|------------|------------|------------|------------|
@@ -140,7 +140,7 @@ My data is all about tracking how my new skincare routine is affecting the numbe
 
 ### b. Visualization Sketch
 
-![](images/Breakout Visualization Draft-1.jpg)
+![](images/clipboard-1740584597.png)
 
 ### c. Visualization Draft
 
