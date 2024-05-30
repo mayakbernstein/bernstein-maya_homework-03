@@ -181,7 +181,7 @@ My piece is showing the number of breakouts on my face as I process in my acne t
 
 The authors used pearson correlation tests to find correlations between number of social learning sources and other variables such as gardening consistency and irrigation methods.They also used Man-Whitney U tests for comparing social capital scores of community gardeners to home gardeners. The figure I described in Homework two is below:
 
-![](images/clipboard-1690620942.png)
+![](images/clipboard-2398288285.png)
 
 ### b. Visual Clarity
 
@@ -191,6 +191,6 @@ The authors' figures showed percentages and frequencies of various variables the
 
 The authors did a relatively good job maintaining aesthetic clarity. Color palettes across figures and tables are consistent, and data never looks cluttered. Backgrounds on figures are slightly distracting with all of the lines, and there are no titles.
 
-### d. Reccomendations
+### d. Recommendations
 
 I would recommend switching the x and y axes so that the categories go along the x-axis (tilted at 45-degree angles for readability) and the frequencies of responses go on the y-axis. I would also recommend taking away background lines altogether as the data is simple enough to read without the guides. Lastly, I would add a simple title such as "Ways Gardeners Preserve Produce." Additionally, I would recommend adding figures that compare the different populations and show the underlying data. For example, a figure could be made showing the difference in median social capital score between home gardeners and community gardeners. A scatter plot could be made with each group on the x axis with the underlying data scattered vertically, showing the scores along the y axis. Each group could be a different color for added clarity, and summary statistics (median and standard deviation) as a dot and whisker on the graph. This would help visually tell the story about the differences that were described in the paper so the reader has a better idea of what the author is describing when they discuss what statistical tests they used.
