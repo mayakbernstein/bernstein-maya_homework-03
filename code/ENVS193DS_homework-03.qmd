@@ -166,3 +166,7 @@ theme(legend.position = "top") +
 ```
 
 ### ![](images/clipboard-2891628687.png)
+
+### **d. Artistic Statement**
+
+My piece is showing the number of breakouts on my face as I process in my acne treatment. I am combining collected data with visual photos to tell a richer story than what I would otherwise be able to do with just my data. I used r to create the base of the figure and graph the data. I decided to color in the bars based on if I followed all of the steps of my treatment plan that day. That included using both acne medications I was perscribed and washing my face twice a day. I then imported that figure into Canva where I added photos throughout to the corresponding date on the graph. I took inspiration from the Dear Data project, which often combined different forms of data in interesting and creative ways.
