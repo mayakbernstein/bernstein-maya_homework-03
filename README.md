@@ -36,10 +36,3 @@
 # Rendered output
 
 The rendered .html for my repo is [here](https://htmlpreview.github.io/?https://github.com/mayakbernstein/bernstein-maya_homework-03/blob/main/code/ENVS193DS_homework-03.html).
-
-# For full credit
-
-Your GitHub READMEs should have at least a "General information" section, a "Data and file overview" section, and a "Rendered output" section in your README for full credit.  
-
-Note that the "Data and file overview" section does not have to look exactly like the one in this repo; it can be a list of folders and files that you write out. See [this repository](https://github.com/an-bui/new-repository) as an example.
-
