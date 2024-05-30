@@ -182,4 +182,8 @@ The authors used pearson correlation tests to find correlations between number o
 ### 
 **b. Visual Clarity**
 
-The authors' figures showed percentages and frequencies of various variables they collected data on, but they did not, for example, show differences in means between populations (community gardeners vs home gardeners) or show the underlying data. Within the figures that they did present however, the data is easy to interpret. Categories are clearly labeled and their values are easy to understand, however it would make more sense for frequency to be on the y axis instead of along the x axis, as it is the dependent variable.
+The authors' figures showed percentages and frequencies of various variables they collected data on, but they did not, for example, show differences in means between populations (community gardeners vs home gardeners) or show the underlying data. Within the figures that they did present however, the data is easy to interpret. Categories are clearly labeled and their values are easy to understand, however, it would make more sense for frequency to be on the y-axis instead of along the x-axis, as it is the dependent variable.
+
+### **c. Aesthetic Clarity**
+
+The authors did a relatively good job maintaining aesthetic clarity. Color palettes across figures and tables are consistent, and data never looks cluttered. Backgrounds on figures are slightly distracting with all of the lines, and there are no titles.
