@@ -23,6 +23,7 @@
 │   │   └── libs                              # accessory files for HTML
 │   ├── ENVS193DS_homework-03.qmd             #  my homework file
 │   ├── ENVS193DS_homework-03.html            #  rendered html of my hw
+│   ├── images                                # images in my homework document
 │   ├── ENVS193DS_homework-03_files           # files associated with HTML
 │   │   ├── figure-html                       # all figure outputs
 │   │   └── libs                              # accessory files for HTML
