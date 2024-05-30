@@ -18,12 +18,18 @@
 ├── code
 │   ├── homework-starter-doc_KEY.html         # rendered HTML of key code
 │   ├── homework-starter-doc_KEY.qmd          # key code file
-│   ├── homework-starter-doc_KEY_files        # files associated with rendered HTML
-│   │   ├── figure-html                       # all figure outputs (explore this file!)
+│   ├── homework-starter-doc_KEY_files        # files associated with HTML
+│   │   ├── figure-html                       # all figure outputs
+│   │   └── libs                              # accessory files for HTML
+│   ├── ENVS193DS_homework-03.qmd             #  my homework file
+│   ├── ENVS193DS_homework-03.html            #  rendered html of my hw
+│   ├── ENVS193DS_homework-03_files           # files associated with HTML
+│   │   ├── figure-html                       # all figure outputs
 │   │   └── libs                              # accessory files for HTML
 │   └── homework-starter-doc_TEMPLATE.qmd     # template code file
 └── data
     └── Valliere_etal_EcoApps_Data.xlsx       # data
+    └── BreakoutsMay30.csv                    # personal data
 ```
 
 # Rendered output
