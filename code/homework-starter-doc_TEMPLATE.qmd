@@ -189,7 +189,6 @@ model0 <- lm(total_g ~ 1, # formula
 model1 <- lm(total_g ~ sla + water_treatment + species_name,
              data = drought_exp_clean)
 
-par(mfrow = c(2, 2))
 plot(model1)
 # you might get a warning when you run this code - that is ok!
 ```
@@ -218,6 +217,12 @@ plot(model3)
 
 look at these diagnostics later!
 
+```{r}
+model4 <- lm(total_g ~ water_treatment + species_name, #formula
+             data = drought_exp_clean) #dataframe
+plot(model4)
+```
+
 # Model selection
 
 From the `MuMIn` package (MuMIn stands for multimodel inference)
@@ -226,12 +231,11 @@ From the `MuMIn` package (MuMIn stands for multimodel inference)
 model.sel(model0,
           model1, 
           model2, 
-          model3)
+          model3,
+          model4)
 ```
 
-Out of the four models we have tried, the best model is the one that includes all three of the predictors: specific leaf area, water treatment, and species.
-
-Note that this may change once you fit and compare the other model!
+Out of the four models we have tried, the best model is the one that includes water treatment and species type.
 
 Look at the diagnostics again!
 
@@ -251,21 +255,25 @@ What are the reference levels?
 
 Interpret the model estimates for the:
 
--   intercept: Mass of Acmispon glaber in drought stress treatment when SLA = 0 \
+-   intercept: Mass of Acmispon glaber in drought stress treatment when SLA = 0\
     -   SLA slope: **across drought treatment and species, with each.1 unit increase in SLA (mm\^2/dry mass of leaf), we expect an ijncrease in total mass of -0.00025 WHICH MEANS WITH THE ESTIMATE AND SE THERE IS NO EFECT OF SLA ON TOTAL MASS**\
--   well watered estimate: across species and SLA, well watered plants tend to be 0.12 +- 0.02 g heavier than drought stressed plants. \
+-   well watered estimate: across species and SLA, well watered plants tend to be 0.12 +- 0.02 g heavier than drought stressed plants.\
 -   Lotus scoparius estimate: **insert response here**\
 -   Stipa pulchra estimate: **insert response here**
+
+```{r}
+summary(model4)
+```
 
 # Model predictions
 
 **Note:** only plot terms in the model you select - if your doesn't include one of these terms, take it out and adjust the plotting code accordingly!
 
 ```{r}
-model_preds <- ggpredict(model1, 
-                         terms = c("sla",
-                                   "water_treatment", 
+model_predsexample <- ggpredict(model4, 
+                         terms = c("water_treatment", 
                                    "species_name"))
+model_preds
 
 # use View(model_preds) to see the predictions as a data frame
 # use model_preds to see the predictions formatted nicely
@@ -290,7 +298,7 @@ The "more customizable" way:
 
 ```{r}
 # creating new data frame of model predictions for plotting
-model_preds_for_plotting <- model_preds %>% 
+model_preds_for_plottingexample <- model_preds %>% 
   rename(sla = x, # renaming columns to make this easier to use
          water_treatment = group,
          species_name = facet)
