@@ -64,7 +64,7 @@ drought_exp_clean <- drought_exp %>%
 
 |                                                                                                                                                                                                                                                                                                                                                                        |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Table 1: Comparison of Regression Models**. This table shows the five regression models used to predict total biomass (g): "Null," "Model 1," "Model 2," "Model 3," and "Model 4." Each column is a seperate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model.  |
+| **Table 1: Comparison of Regression Models**. This table shows the five regression models used to predict total biomass (g): "Null," "Model 1," "Model 2," "Model 3," and "Model 4." Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model.  |
 
 | Predictors                                              | Null | Model 1 | Model 2 | Model 3 | Model 4 |
 |------------|------------|------------|------------|------------|------------|
@@ -169,4 +169,12 @@ theme(legend.position = "top") +
 
 ### **d. Artistic Statement**
 
-My piece is showing the number of breakouts on my face as I process in my acne treatment. I am combining collected data with visual photos to tell a richer story than what I would otherwise be able to do with just my data. I used r to create the base of the figure and graph the data. I decided to color in the bars based on if I followed all of the steps of my treatment plan that day. That included using both acne medications I was perscribed and washing my face twice a day. I then imported that figure into Canva where I added photos throughout to the corresponding date on the graph. I took inspiration from the Dear Data project, which often combined different forms of data in interesting and creative ways.
+My piece is showing the number of breakouts on my face as I process in my acne treatment. I am combining collected data with visual photos to tell a richer story than what I would otherwise be able to do with just my data. I used r to create the base of the figure and graph the data. I decided to color in the bars based on if I followed all of the steps of my treatment plan that day. That included using both acne medications I was prescribed and washing my face twice a day. I then imported that figure into Canva where I added photos throughout to the corresponding date on the graph. I took inspiration from the Dear Data project, which often combined different forms of data in interesting and creative ways.
+
+## **Problem 3. Statistical critique**
+
+### **a. Revisit and Summarize**
+
+The authors used pearson correlation tests to find correlations between number of social learning sources and other variables such as gardening consistency and irrigation methods.They also used Man-Whitney U tests for comparing social capital scores of community gardeners to home gardeners. The figure I described in Homework two is below:
+
+![](images/clipboard-1690620942.png)
