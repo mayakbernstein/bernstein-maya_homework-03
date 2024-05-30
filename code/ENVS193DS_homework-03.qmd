@@ -1,15 +1,19 @@
 ---
-title: "ENVS193DS_homework-03"
+title: "ENVS193DS Homework 3"
 author: "Maya Bernstein"
+date: "May 30, 2024"
 format: html
 html: 
     toc: true # includes a table of contents in rendered html format
+    toc-depth: 3 # specify the depth of the table of contents
 execute: # for all code chunks
     warning: FALSE # do not display warnings
     message: FALSE # do not display messages
 ---
 
 ### [Link To Repository](https://github.com/mayakbernstein/bernstein-maya_homework-03.git)
+
+### Attaching Packages and Cleaning Data
 
 ```{r}
 # general use
@@ -58,7 +62,7 @@ drought_exp_clean <- drought_exp %>%
   relocate(water_treatment, .after = water) # moving water_treatment column after water
 ```
 
-## **Problem 1. Multiple linear regression: model selection and construction** 
+## Problem 1. Multiple linear regression: model selection and construction
 
 ### a. Table of Models
 
@@ -128,7 +132,7 @@ ggplot() +
 
 Based on Akaike Information Criterion, water treatment and plant species are the predictors that best describe total mass (AICc = -156.2). These set of predictors were used in model 4, which was then used to perform a multiple linear regression. This regression indicated both species and water treatment type predict total biomass (g) (F (7,62) = 27.08, p \<0.001, a = 0.05, adjusted R2 = 0.7257). Across species type, plants that were well-watered had a total mass that was 0.12 (+-0.017) grams higher than drought-stressed plants. Across water treatments, *Grindelia camporum* showed the largest positive difference (+0.31; +- 0.032 grams, p \<0.001, a = 0.05) in total mass compared to the baseline species *Acmispon glaber*. Other species like *Encelia californica*, *Eschscholzia californica*, and *Nasella pulchra* also had significantly (p \< 0.001) higher total mass, while *Penstemon centranthifolius* did not show a statistically significant difference (p = 0.13).
 
-## **Problem 2. Affective visualization**
+## Problem 2. Affective visualization
 
 ### a. Affective Visualization for My Data
 
@@ -167,27 +171,26 @@ theme(legend.position = "top") +
 
 ### ![](images/clipboard-2891628687.png)
 
-### **d. Artistic Statement**
+### d. Artistic Statement
 
 My piece is showing the number of breakouts on my face as I process in my acne treatment. I am combining collected data with visual photos to tell a richer story than what I would otherwise be able to do with just my data. I used r to create the base of the figure and graph the data. I decided to color in the bars based on if I followed all of the steps of my treatment plan that day. That included using both acne medications I was prescribed and washing my face twice a day. I then imported that figure into Canva where I added photos throughout to the corresponding date on the graph. I took inspiration from the Dear Data project, which often combined different forms of data in interesting and creative ways.
 
-## **Problem 3. Statistical critique**
+## Problem 3. Statistical critique
 
-### **a. Revisit and Summarize**
+### a. Revisit and Summarize
 
 The authors used pearson correlation tests to find correlations between number of social learning sources and other variables such as gardening consistency and irrigation methods.They also used Man-Whitney U tests for comparing social capital scores of community gardeners to home gardeners. The figure I described in Homework two is below:
 
 ![](images/clipboard-1690620942.png)
 
-### 
-**b. Visual Clarity**
+### b. Visual Clarity
 
 The authors' figures showed percentages and frequencies of various variables they collected data on, but they did not, for example, show differences in means between populations (community gardeners vs home gardeners) or show the underlying data. Within the figures that they did present however, the data is easy to interpret. Categories are clearly labeled and their values are easy to understand, however, it would make more sense for frequency to be on the y-axis instead of along the x-axis, as it is the dependent variable.
 
-### **c. Aesthetic Clarity**
+### c. Aesthetic Assessment
 
 The authors did a relatively good job maintaining aesthetic clarity. Color palettes across figures and tables are consistent, and data never looks cluttered. Backgrounds on figures are slightly distracting with all of the lines, and there are no titles.
 
-### **d. Recommendations**
+### d. Reccomendations
 
 I would recommend switching the x and y axes so that the categories go along the x-axis (tilted at 45-degree angles for readability) and the frequencies of responses go on the y-axis. I would also recommend taking away background lines altogether as the data is simple enough to read without the guides. Lastly, I would add a simple title such as "Ways Gardeners Preserve Produce." Additionally, I would recommend adding figures that compare the different populations and show the underlying data. For example, a figure could be made showing the difference in median social capital score between home gardeners and community gardeners. A scatter plot could be made with each group on the x axis with the underlying data scattered vertically, showing the scores along the y axis. Each group could be a different color for added clarity, and summary statistics (median and standard deviation) as a dot and whisker on the graph. This would help visually tell the story about the differences that were described in the paper so the reader has a better idea of what the author is describing when they discuss what statistical tests they used.

@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Maya Bernstein">
+<meta name="dcterms.date" content="2024-05-30">
 
-<title>ENVS193DS_homework-03</title>
+<title>ENVS193DS Homework 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ENVS193DS_homework-03</h1>
+<h1 class="title">ENVS193DS Homework 3</h1>
 </div>
 
 
@@ -94,6 +95,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 30, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -101,8 +108,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="link-to-repository-add-link" class="level2">
-<h2 class="anchored" data-anchor-id="link-to-repository-add-link">Link to Repository <em>add link</em></h2>
+<section id="link-to-repository" class="level3">
+<h3 class="anchored" data-anchor-id="link-to-repository"><a href="https://github.com/mayakbernstein/bernstein-maya_homework-03.git">Link To Repository</a></h3>
+</section>
+<section id="attaching-packages-and-cleaning-data" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-packages-and-cleaning-data">Attaching Packages and Cleaning Data</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># general use</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -124,578 +134,212 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>drought_exp <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"data"</span>, </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>drought_exp <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="co">#specifying path</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Valliere_etal_EcoApps_Data.xlsx"</span>),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sheet =</span> <span class="st">"First Harvest"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># quick look at data </span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(drought_exp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tibble [70 × 13] (S3: tbl_df/tbl/data.frame)
- $ Species            : chr [1:70] "ENCCAL" "ENCCAL" "ENCCAL" "ENCCAL" ...
- $ Water              : chr [1:70] "WW" "WW" "WW" "WW" ...
- $ Rep #              : num [1:70] 1 2 3 4 5 1 2 3 4 5 ...
- $ Height (cm)        : num [1:70] 5.8 4.9 8.4 6.5 7.1 3.2 4.4 4.2 4.5 3.9 ...
- $ Leaf #             : num [1:70] 11 8 11 12 10 7 7 10 8 6 ...
- $ Leaf dry weight (g): num [1:70] 0.0294 0.0185 0.0177 0.0178 0.0164 0.017 0.0193 0.0153 0.0159 0.0133 ...
- $ Leaf area (cm2)    : num [1:70] 5.01 3.98 3.69 3.84 3.63 3.06 3.1 2.94 2.73 2.61 ...
- $ SLA                : num [1:70] 170 215 209 216 222 ...
- $ Total LA           : num [1:70] 55.1 31.8 40.6 46.1 36.3 ...
- $ Shoot (g)          : num [1:70] 0.253 0.164 0.241 0.213 0.232 ...
- $ Root (g)           : num [1:70] 0.202 0.165 0.209 0.146 0.12 ...
- $ Total (g)          : num [1:70] 0.455 0.329 0.45 0.359 0.352 ...
- $ R:S                : num [1:70] 0.8 1 0.9 0.7 0.5 0.8 1.2 3.1 0.9 1.2 ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(drought_exp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
-</div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sheet =</span> <span class="st">"First Harvest"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cleaning</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>drought_exp_clean <span class="ot">&lt;-</span> drought_exp <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> <span class="co"># nicer column names</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species_name =</span> <span class="fu">case_when</span>( <span class="co"># adding column with species scientific names</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"ENCCAL"</span> <span class="sc">~</span> <span class="st">"Encelia californica"</span>, <span class="co"># bush sunflower</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"ESCCAL"</span> <span class="sc">~</span> <span class="st">"Eschscholzia californica"</span>, <span class="co"># California poppy</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"PENCEN"</span> <span class="sc">~</span> <span class="st">"Penstemon centranthifolius"</span>, <span class="co"># Scarlet bugler</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"GRICAM"</span> <span class="sc">~</span> <span class="st">"Grindelia camporum"</span>, <span class="co"># great valley gumweed</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"SALLEU"</span> <span class="sc">~</span> <span class="st">"Salvia leucophylla"</span>, <span class="co"># Purple sage</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"STIPUL"</span> <span class="sc">~</span> <span class="st">"Nasella pulchra"</span>, <span class="co"># Purple needlegrass</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"LOTSCO"</span> <span class="sc">~</span> <span class="st">"Acmispon glaber"</span> <span class="co"># deerweed</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(species_name, <span class="at">.after =</span> species) <span class="sc">%&gt;%</span> <span class="co"># moving species_name column after species</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">water_treatment =</span> <span class="fu">case_when</span>( <span class="co"># adding column with full treatment names</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    water <span class="sc">==</span> <span class="st">"WW"</span> <span class="sc">~</span> <span class="st">"Well watered"</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    water <span class="sc">==</span> <span class="st">"DS"</span> <span class="sc">~</span> <span class="st">"Drought stressed"</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(water_treatment, <span class="at">.after =</span> water) <span class="co"># moving water_treatment column after water</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cleaning</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>drought_exp_clean <span class="ot">&lt;-</span> drought_exp <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> <span class="co"># nicer column names</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species_name =</span> <span class="fu">case_when</span>( <span class="co"># adding column with species scientific names</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"ENCCAL"</span> <span class="sc">~</span> <span class="st">"Encelia californica"</span>, <span class="co"># bush sunflower</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"ESCCAL"</span> <span class="sc">~</span> <span class="st">"Eschscholzia californica"</span>, <span class="co"># California poppy</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"PENCEN"</span> <span class="sc">~</span> <span class="st">"Penstemon centranthifolius"</span>, <span class="co"># Scarlet bugler</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"GRICAM"</span> <span class="sc">~</span> <span class="st">"Grindelia camporum"</span>, <span class="co"># great valley gumweed</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"SALLEU"</span> <span class="sc">~</span> <span class="st">"Salvia leucophylla"</span>, <span class="co"># Purple sage</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"STIPUL"</span> <span class="sc">~</span> <span class="st">"Nasella pulchra"</span>, <span class="co"># Purple needlegrass</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">"LOTSCO"</span> <span class="sc">~</span> <span class="st">"Acmispon glaber"</span> <span class="co"># deerweed</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(species_name, <span class="at">.after =</span> species) <span class="sc">%&gt;%</span> <span class="co"># moving species_name column after species</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">water_treatment =</span> <span class="fu">case_when</span>( <span class="co"># adding column with full treatment names</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    water <span class="sc">==</span> <span class="st">"WW"</span> <span class="sc">~</span> <span class="st">"Well watered"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    water <span class="sc">==</span> <span class="st">"DS"</span> <span class="sc">~</span> <span class="st">"Drought stressed"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(water_treatment, <span class="at">.after =</span> water) <span class="co"># moving water_treatment column after water</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="question-1" class="level1">
-<h1>Question 1</h1>
-<section id="creating-models" class="level2">
-<h2 class="anchored" data-anchor-id="creating-models"><strong>Creating models</strong></h2>
-<section id="model-0---null" class="level4">
-<h4 class="anchored" data-anchor-id="model-0---null">Model 0 - null</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#null model</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_g <span class="sc">~</span> <span class="dv">1</span>, <span class="co"># formula</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> drought_exp_clean) <span class="co"># data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="problem-1.-multiple-linear-regression-model-selection-and-construction" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1.-multiple-linear-regression-model-selection-and-construction">Problem 1. Multiple linear regression: model selection and construction</h2>
+<section id="a.-table-of-models" class="level3">
+<h3 class="anchored" data-anchor-id="a.-table-of-models">a. Table of Models</h3>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Table 1: Comparison of Regression Models</strong>. This table shows the five regression models used to predict total biomass (g): “Null,” “Model 1,” “Model 2,” “Model 3,” and “Model 4.” Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model.</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Predictors</th>
+<th>Null</th>
+<th>Model 1</th>
+<th>Model 2</th>
+<th>Model 3</th>
+<th>Model 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Specific Leaf Area</strong> (mm<sup>2</sup>/g)</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Watering Level (well watered vs drought conditions)</strong></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td><strong>Species Type</strong></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="model-1---total-biomass-as-a-function-of-sla-water-treatment-and-species" class="level4">
-<h4 class="anchored" data-anchor-id="model-1---total-biomass-as-a-function-of-sla-water-treatment-and-species">Model 1 - total biomass as a function of SLA, water treatment, and species</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># saturated model</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_g <span class="sc">~</span> sla <span class="sc">+</span> water_treatment <span class="sc">+</span> species_name, <span class="co">#formula</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> drought_exp_clean) <span class="co">#dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="b.-statistical-methods" class="level3">
+<h3 class="anchored" data-anchor-id="b.-statistical-methods">b. Statistical Methods</h3>
+<p>To examine the influence of specific leaf area (mm<sup>2</sup>/g), watering level (well watered vs drought stressed, and species type on total biomass, I compared the five models outlined in the table above in order to determine which predictor variables best influence total biomass. I used the <code>model.sel</code> function from the <code>MuMIn</code> package which uses corrected (for smaller sample size) Akaike Information Criterion (AICc) to rank the provided models according to their AICc values. Model 4, which looks at total biomass as a function of water treatment and species, has the lowest AICc value (-156.2) and highest weight (0.772), indicating it is the best model among those compared. To evaluate linear model assumptions, I used the <code>plot</code> for each model to evaluate the diagnostic plots for residuals vs fitted values, the Normal Q-Q plot, the Scale-Location plot, and the residuals vs.&nbsp;leverage plot. These visual checks confirmed the models were homoscedastic, normally distributed, and linear.</p>
 </section>
-<section id="model-2---total-biomass-as-a-function-of-sla-and-water-treatment" class="level4">
-<h4 class="anchored" data-anchor-id="model-2---total-biomass-as-a-function-of-sla-and-water-treatment">Model 2 - total biomass as a function of SLA and water treatment</h4>
+<section id="c.-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="c.-visualization">c.&nbsp;Visualization</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_g <span class="sc">~</span> sla <span class="sc">+</span> water_treatment, <span class="co">#formula w correct predictors</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> drought_exp_clean) <span class="co">#dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first read in model I am using</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_g <span class="sc">~</span> water_treatment <span class="sc">+</span> species_name, <span class="co">#formula</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> drought_exp_clean) <span class="co">#dataframe</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#then need to get model prediction values</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>model_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(model4, <span class="co">#using model 4</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"water_treatment"</span>, <span class="co">#predictor terms within model 4</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"species_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="model-3---total-biomass-as-a-function-of-sla-and-species" class="level4">
-<h4 class="anchored" data-anchor-id="model-3---total-biomass-as-a-function-of-sla-and-species">Model 3 - total biomass as a function of SLA and species</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_g <span class="sc">~</span> sla <span class="sc">+</span> species_name, <span class="co">#formula</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> drought_exp_clean) <span class="co">#dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="model-4---total-biomass-as-a-function-of-water-treatment-and-species" class="level4">
-<h4 class="anchored" data-anchor-id="model-4---total-biomass-as-a-function-of-water-treatment-and-species">Model 4 - <strong>total biomass as a function of water treatment and species</strong></h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_g <span class="sc">~</span> water_treatment <span class="sc">+</span> species_name, <span class="co">#formula</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> drought_exp_clean) <span class="co">#dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="table-of-models" class="level3">
-<h3 class="anchored" data-anchor-id="table-of-models">Table of Models</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compare the models</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>model_comparison <span class="ot">&lt;-</span> modelsummary<span class="sc">::</span><span class="fu">modelsummary</span>( <span class="co"># this function takes a list of models</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>( </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"null"</span> <span class="ot">=</span> model0, <span class="co"># "model name" = model object for all below </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"model 1"</span> <span class="ot">=</span> model1,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"model 2"</span> <span class="ot">=</span> model2,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"model 3"</span> <span class="ot">=</span> model3,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"model 4"</span> <span class="ot">=</span> model4))</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>model_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make new dataframe </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model_preds_for_plotting <span class="ot">&lt;-</span> model_preds <span class="sc">%&gt;%</span>  <span class="co">#make a new df from the model predictions df</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">water_treatment =</span> x, <span class="co"># renaming columns to make them match drought_exp_clean names</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">species_name =</span> group)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># underlying data</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> drought_exp_clean, <span class="co">#using the clean data</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> water_treatment, <span class="co"># x axis is water treatment</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> total_g, <span class="co">#y axis is total biomass </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> water_treatment), <span class="co">#color the points based on water treatment</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.25</span>)<span class="sc">+</span> <span class="co">#make the underlying points more transparent</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#C4A484"</span>, <span class="st">"#228B22"</span>))<span class="sc">+</span>  <span class="co"># Specify colors for each group</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#model data</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">data =</span> model_preds_for_plotting, <span class="co">#using dataframe I made above</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> water_treatment, <span class="co"># x axis is water treatment</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> predicted, <span class="co">#y axis is predicted total biomass (g)</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> water_treatment), <span class="co">#color based on water treatment </span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>,  <span class="co"># Making model prediction points larger for visibility</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span>  <span class="co"># Changing shape to triangle for better differentiation</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cleaner theme</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add labels </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Water Treatment"</span>, <span class="at">y =</span> <span class="st">"Total Biomass (mm2/g)"</span>, <span class="at">title =</span> <span class="st">"Model Predictions vs. Data by Species and Watering Conditions"</span>) <span class="sc">+</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove legend</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating different panels for species</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
- 
-
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tinytable_gcj8exszx61bkzvo3er8</title>
-    <style>
-.table td.tinytable_css_wjknyiysba9iuqftueik, .table th.tinytable_css_wjknyiysba9iuqftueik {    border-bottom: solid 0.1em #d3d8dc; }
-.table td.tinytable_css_kxlz1wmr15uwgse3sq8u, .table th.tinytable_css_kxlz1wmr15uwgse3sq8u {    text-align: left; }
-.table td.tinytable_css_slotbm7943pjscyj6azt, .table th.tinytable_css_slotbm7943pjscyj6azt {    text-align: center; }
-.table td.tinytable_css_jx2kspdxh4ii4gck8jyb, .table th.tinytable_css_jx2kspdxh4ii4gck8jyb {    text-align: center; }
-.table td.tinytable_css_pue0sx26on67z2h8yve1, .table th.tinytable_css_pue0sx26on67z2h8yve1 {    text-align: center; }
-.table td.tinytable_css_6bz0zah6wpwgzp389gtj, .table th.tinytable_css_6bz0zah6wpwgzp389gtj {    text-align: center; }
-.table td.tinytable_css_xs65wa793v8hot1nj3ca, .table th.tinytable_css_xs65wa793v8hot1nj3ca {    text-align: center; }
-.table td.tinytable_css_q4sfg34ks8wv3yhpwtgg, .table th.tinytable_css_q4sfg34ks8wv3yhpwtgg {    border-bottom: solid 0.05em black; }
-    </style>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      },
-      svg: {
-        fontCache: 'global'
-      }
-    };
-    </script>
-  
-
-  
-    <div class="container">
-      <table class="table table-borderless" id="tinytable_gcj8exszx61bkzvo3er8" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
-        <thead>
-        
-              <tr>
-                <th scope="col"> </th>
-                <th scope="col">null</th>
-                <th scope="col">model 1</th>
-                <th scope="col">model 2</th>
-                <th scope="col">model 3</th>
-                <th scope="col">model 4</th>
-              </tr>
-        </thead>
-        
-        <tbody>
-                <tr>
-                  <td>(Intercept)                           </td>
-                  <td>0.279  </td>
-                  <td>0.080  </td>
-                  <td>0.047  </td>
-                  <td>-0.033 </td>
-                  <td>0.055  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>(0.017)</td>
-                  <td>(0.056)</td>
-                  <td>(0.054)</td>
-                  <td>(0.067)</td>
-                  <td>(0.025)</td>
-                </tr>
-                <tr>
-                  <td>sla                                   </td>
-                  <td>       </td>
-                  <td>0.000  </td>
-                  <td>0.001  </td>
-                  <td>0.001  </td>
-                  <td>       </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.000)</td>
-                  <td>(0.000)</td>
-                  <td>(0.001)</td>
-                  <td>       </td>
-                </tr>
-                <tr>
-                  <td>water_treatmentWell watered           </td>
-                  <td>       </td>
-                  <td>0.122  </td>
-                  <td>0.090  </td>
-                  <td>       </td>
-                  <td>0.117  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.020)</td>
-                  <td>(0.029)</td>
-                  <td>       </td>
-                  <td>(0.017)</td>
-                </tr>
-                <tr>
-                  <td>species_nameEncelia californica       </td>
-                  <td>       </td>
-                  <td>0.238  </td>
-                  <td>       </td>
-                  <td>0.115  </td>
-                  <td>0.218  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.051)</td>
-                  <td>       </td>
-                  <td>(0.059)</td>
-                  <td>(0.032)</td>
-                </tr>
-                <tr>
-                  <td>species_nameEschscholzia californica  </td>
-                  <td>       </td>
-                  <td>0.234  </td>
-                  <td>       </td>
-                  <td>0.222  </td>
-                  <td>0.232  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.033)</td>
-                  <td>       </td>
-                  <td>(0.041)</td>
-                  <td>(0.032)</td>
-                </tr>
-                <tr>
-                  <td>species_nameGrindelia camporum        </td>
-                  <td>       </td>
-                  <td>0.330  </td>
-                  <td>       </td>
-                  <td>0.226  </td>
-                  <td>0.313  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.047)</td>
-                  <td>       </td>
-                  <td>(0.054)</td>
-                  <td>(0.032)</td>
-                </tr>
-                <tr>
-                  <td>species_nameNasella pulchra           </td>
-                  <td>       </td>
-                  <td>0.241  </td>
-                  <td>       </td>
-                  <td>0.168  </td>
-                  <td>0.229  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.040)</td>
-                  <td>       </td>
-                  <td>(0.048)</td>
-                  <td>(0.032)</td>
-                </tr>
-                <tr>
-                  <td>species_namePenstemon centranthifolius</td>
-                  <td>       </td>
-                  <td>0.061  </td>
-                  <td>       </td>
-                  <td>-0.006 </td>
-                  <td>0.050  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.039)</td>
-                  <td>       </td>
-                  <td>(0.047)</td>
-                  <td>(0.032)</td>
-                </tr>
-                <tr>
-                  <td>species_nameSalvia leucophylla        </td>
-                  <td>       </td>
-                  <td>0.117  </td>
-                  <td>       </td>
-                  <td>0.139  </td>
-                  <td>0.120  </td>
-                </tr>
-                <tr>
-                  <td>                                      </td>
-                  <td>       </td>
-                  <td>(0.033)</td>
-                  <td>       </td>
-                  <td>(0.041)</td>
-                  <td>(0.032)</td>
-                </tr>
-                <tr>
-                  <td>Num.Obs.                              </td>
-                  <td>70     </td>
-                  <td>70     </td>
-                  <td>70     </td>
-                  <td>70     </td>
-                  <td>70     </td>
-                </tr>
-                <tr>
-                  <td>R2                                    </td>
-                  <td>0.000  </td>
-                  <td>0.755  </td>
-                  <td>0.303  </td>
-                  <td>0.610  </td>
-                  <td>0.754  </td>
-                </tr>
-                <tr>
-                  <td>R2 Adj.                               </td>
-                  <td>0.000  </td>
-                  <td>0.722  </td>
-                  <td>0.282  </td>
-                  <td>0.566  </td>
-                  <td>0.726  </td>
-                </tr>
-                <tr>
-                  <td>AIC                                   </td>
-                  <td>-75.2  </td>
-                  <td>-157.5 </td>
-                  <td>-96.4  </td>
-                  <td>-127.1 </td>
-                  <td>-159.2 </td>
-                </tr>
-                <tr>
-                  <td>BIC                                   </td>
-                  <td>-70.7  </td>
-                  <td>-135.0 </td>
-                  <td>-87.4  </td>
-                  <td>-106.8 </td>
-                  <td>-139.0 </td>
-                </tr>
-                <tr>
-                  <td>Log.Lik.                              </td>
-                  <td>39.580 </td>
-                  <td>88.741 </td>
-                  <td>52.220 </td>
-                  <td>72.538 </td>
-                  <td>88.598 </td>
-                </tr>
-                <tr>
-                  <td>RMSE                                  </td>
-                  <td>0.14   </td>
-                  <td>0.07   </td>
-                  <td>0.11   </td>
-                  <td>0.09   </td>
-                  <td>0.07   </td>
-                </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <script>
-      function styleCell_tinytable_k3awft1iokcosrq3qpdh(i, j, css_id) {
-        var table = document.getElementById("tinytable_gcj8exszx61bkzvo3er8");
-        table.rows[i].cells[j].classList.add(css_id);
-      }
-      function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_gcj8exszx61bkzvo3er8');
-        var newRow = table.insertRow(i);
-        var newCell = newRow.insertCell(0);
-        newCell.setAttribute("colspan", colspan);
-        // newCell.innerText = content;
-        // this may be unsafe, but innerText does not interpret <br>
-        newCell.innerHTML = content;
-      }
-      function spanCell_tinytable_k3awft1iokcosrq3qpdh(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_gcj8exszx61bkzvo3er8");
-        const targetRow = table.rows[i];
-        const targetCell = targetRow.cells[j];
-        for (let r = 0; r < rowspan; r++) {
-          // Only start deleting cells to the right for the first row (r == 0)
-          if (r === 0) {
-            // Delete cells to the right of the target cell in the first row
-            for (let c = colspan - 1; c > 0; c--) {
-              if (table.rows[i + r].cells[j + c]) {
-                table.rows[i + r].deleteCell(j + c);
-              }
-            }
-          }
-          // For rows below the first, delete starting from the target column
-          if (r > 0) {
-            for (let c = colspan - 1; c >= 0; c--) {
-              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
-                table.rows[i + r].deleteCell(j);
-              }
-            }
-          }
-        }
-        // Set rowspan and colspan of the target cell
-        targetCell.rowSpan = rowspan;
-        targetCell.colSpan = colspan;
-      }
-
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 0, 'tinytable_css_wjknyiysba9iuqftueik') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 1, 'tinytable_css_wjknyiysba9iuqftueik') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 2, 'tinytable_css_wjknyiysba9iuqftueik') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 3, 'tinytable_css_wjknyiysba9iuqftueik') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 4, 'tinytable_css_wjknyiysba9iuqftueik') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 5, 'tinytable_css_wjknyiysba9iuqftueik') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(1, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(2, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(3, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(4, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(5, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(6, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(7, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(8, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(9, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(10, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(11, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(12, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(13, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(14, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(15, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(16, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(17, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(19, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(20, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(21, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(22, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(23, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(24, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(25, 0, 'tinytable_css_kxlz1wmr15uwgse3sq8u') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(1, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(2, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(3, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(4, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(5, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(6, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(7, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(8, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(9, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(10, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(11, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(12, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(13, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(14, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(15, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(16, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(17, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(19, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(20, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(21, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(22, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(23, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(24, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(25, 1, 'tinytable_css_slotbm7943pjscyj6azt') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(1, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(2, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(3, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(4, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(5, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(6, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(7, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(8, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(9, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(10, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(11, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(12, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(13, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(14, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(15, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(16, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(17, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(19, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(20, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(21, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(22, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(23, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(24, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(25, 2, 'tinytable_css_jx2kspdxh4ii4gck8jyb') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(1, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(2, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(3, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(4, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(5, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(6, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(7, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(8, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(9, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(10, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(11, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(12, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(13, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(14, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(15, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(16, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(17, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(19, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(20, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(21, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(22, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(23, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(24, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(25, 3, 'tinytable_css_pue0sx26on67z2h8yve1') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(1, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(2, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(3, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(4, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(5, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(6, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(7, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(8, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(9, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(10, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(11, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(12, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(13, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(14, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(15, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(16, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(17, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(19, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(20, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(21, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(22, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(23, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(24, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(25, 4, 'tinytable_css_6bz0zah6wpwgzp389gtj') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(0, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(1, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(2, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(3, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(4, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(5, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(6, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(7, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(8, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(9, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(10, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(11, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(12, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(13, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(14, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(15, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(16, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(17, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(19, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(20, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(21, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(22, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(23, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(24, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(25, 5, 'tinytable_css_xs65wa793v8hot1nj3ca') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 0, 'tinytable_css_q4sfg34ks8wv3yhpwtgg') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 1, 'tinytable_css_q4sfg34ks8wv3yhpwtgg') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 2, 'tinytable_css_q4sfg34ks8wv3yhpwtgg') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 3, 'tinytable_css_q4sfg34ks8wv3yhpwtgg') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 4, 'tinytable_css_q4sfg34ks8wv3yhpwtgg') })
-window.addEventListener('load', function () { styleCell_tinytable_k3awft1iokcosrq3qpdh(18, 5, 'tinytable_css_q4sfg34ks8wv3yhpwtgg') })
-    </script>
-
-  
-
-
+<p><img src="ENVS193DS_homework-03_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Table 1:</strong> <strong>Comparison of Regression Models.</strong> This table compares five regression models: “null,” “model 1,” “model 2,” “model 3,” and “model 4.” The columns represent the different models. The rows include the intercept, coefficients for the predictor variables (<code>sla</code>, <code>water_treatmentWell watered</code>, various <code>species_name</code> variables), and their standard errors in parentheses. Summary statistics provided for each model include the number of observations (Num.Obs.), R-squared (R2), adjusted R-squared (R2 Adj.), Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), log-likelihood (Log.Lik.), and root mean squared error (RMSE).</p>
+<p><strong>Figure 1: Well-watered plants tend to have higher total biomass than drought stressed plants.</strong> The above graph shows differences in total plant biomass between different water treatment types and species. The lighter circular points indicate underlying data while the triangular points indicate the model prediction values for each group. Among all species, well watered groups have higher predicted biomass than drought-stressed groups. Species type also influences predicted total biomass.</p>
 </section>
+<section id="e.-results" class="level3">
+<h3 class="anchored" data-anchor-id="e.-results">e. Results</h3>
+<p>Based on Akaike Information Criterion, water treatment and plant species are the predictors that best describe total mass (AICc = -156.2). These set of predictors were used in model 4, which was then used to perform a multiple linear regression. This regression indicated both species and water treatment type predict total biomass (g) (F (7,62) = 27.08, p &lt;0.001, a = 0.05, adjusted R2 = 0.7257). Across species type, plants that were well-watered had a total mass that was 0.12 (+-0.017) grams higher than drought-stressed plants. Across water treatments, <em>Grindelia camporum</em> showed the largest positive difference (+0.31; +- 0.032 grams, p &lt;0.001, a = 0.05) in total mass compared to the baseline species <em>Acmispon glaber</em>. Other species like <em>Encelia californica</em>, <em>Eschscholzia californica</em>, and <em>Nasella pulchra</em> also had significantly (p &lt; 0.001) higher total mass, while <em>Penstemon centranthifolius</em> did not show a statistically significant difference (p = 0.13).</p>
+</section>
+</section>
+<section id="problem-2.-affective-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="problem-2.-affective-visualization">Problem 2. Affective visualization</h2>
+<section id="a.-affective-visualization-for-my-data" class="level3">
+<h3 class="anchored" data-anchor-id="a.-affective-visualization-for-my-data">a. Affective Visualization for My Data</h3>
+<p>My data is all about tracking how my new skincare routine is affecting the number of breakouts on my face. I think a really cool data visualization I could do would be a photo collage/slideshow showing the progression of my skin since I started the treatment the day I started collecting data. I, however, did not take photos of my face every day, so instead I think I could pair some photos that I do have with the data that I collected on a graph for a blended visualization.</p>
+</section>
+<section id="b.-visualization-sketch" class="level3">
+<h3 class="anchored" data-anchor-id="b.-visualization-sketch">b. Visualization Sketch</h3>
+<p><img src="images/Breakout%20Visualization%20Draft-1.jpg" class="img-fluid"></p>
+</section>
+<section id="c.-visualization-draft" class="level3">
+<h3 class="anchored" data-anchor-id="c.-visualization-draft">c.&nbsp;Visualization Draft</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#first need to read in my CSV</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Breakouts <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"../data/BreakoutsMay30.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>base_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span> <span class="co">#create figure</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">data =</span> Breakouts, <span class="co">#ata is from breakout file, figure type is a bar chart</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> treatment_day, <span class="co"># x axis is treatment day </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> pimples, <span class="co"># y axis is number of breakouts </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> followed_plan))<span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>))<span class="sc">+</span> <span class="co"># Specify colors</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaner theme</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Treatment Day"</span>, <span class="at">y =</span> <span class="st">"Number of Breakouts"</span>, <span class="at">title =</span> <span class="st">"Breakouts Throughout my Treatment"</span>, <span class="at">fill =</span> <span class="st">"Followed Treatment Plan"</span>) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove legend</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a> <span class="co"># Remove space between x-axis and bars</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"><img src="images/clipboard-2891628687.png" class="img-fluid"></h3>
+</section>
+<section id="d.-artistic-statement" class="level3">
+<h3 class="anchored" data-anchor-id="d.-artistic-statement">d.&nbsp;Artistic Statement</h3>
+<p>My piece is showing the number of breakouts on my face as I process in my acne treatment. I am combining collected data with visual photos to tell a richer story than what I would otherwise be able to do with just my data. I used r to create the base of the figure and graph the data. I decided to color in the bars based on if I followed all of the steps of my treatment plan that day. That included using both acne medications I was prescribed and washing my face twice a day. I then imported that figure into Canva where I added photos throughout to the corresponding date on the graph. I took inspiration from the Dear Data project, which often combined different forms of data in interesting and creative ways.</p>
+</section>
+</section>
+<section id="problem-3.-statistical-critique" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3.-statistical-critique">Problem 3. Statistical critique</h2>
+<section id="a.-revisit-and-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="a.-revisit-and-summarize">a. Revisit and Summarize</h3>
+<p>The authors used pearson correlation tests to find correlations between number of social learning sources and other variables such as gardening consistency and irrigation methods.They also used Man-Whitney U tests for comparing social capital scores of community gardeners to home gardeners. The figure I described in Homework two is below:</p>
+<p><img src="images/clipboard-1690620942.png" class="img-fluid"></p>
+</section>
+<section id="b.-visual-clarity" class="level3">
+<h3 class="anchored" data-anchor-id="b.-visual-clarity">b. Visual Clarity</h3>
+<p>The authors’ figures showed percentages and frequencies of various variables they collected data on, but they did not, for example, show differences in means between populations (community gardeners vs home gardeners) or show the underlying data. Within the figures that they did present however, the data is easy to interpret. Categories are clearly labeled and their values are easy to understand, however, it would make more sense for frequency to be on the y-axis instead of along the x-axis, as it is the dependent variable.</p>
+</section>
+<section id="c.-aesthetic-assessment" class="level3">
+<h3 class="anchored" data-anchor-id="c.-aesthetic-assessment">c.&nbsp;Aesthetic Assessment</h3>
+<p>The authors did a relatively good job maintaining aesthetic clarity. Color palettes across figures and tables are consistent, and data never looks cluttered. Backgrounds on figures are slightly distracting with all of the lines, and there are no titles.</p>
+</section>
+<section id="d.-reccomendations" class="level3">
+<h3 class="anchored" data-anchor-id="d.-reccomendations">d.&nbsp;Reccomendations</h3>
+<p>I would recommend switching the x and y axes so that the categories go along the x-axis (tilted at 45-degree angles for readability) and the frequencies of responses go on the y-axis. I would also recommend taking away background lines altogether as the data is simple enough to read without the guides. Lastly, I would add a simple title such as “Ways Gardeners Preserve Produce.” Additionally, I would recommend adding figures that compare the different populations and show the underlying data. For example, a figure could be made showing the difference in median social capital score between home gardeners and community gardeners. A scatter plot could be made with each group on the x axis with the underlying data scattered vertically, showing the scores along the y axis. Each group could be a different color for added clarity, and summary statistics (median and standard deviation) as a dot and whisker on the graph. This would help visually tell the story about the differences that were described in the paper so the reader has a better idea of what the author is describing when they discuss what statistical tests they used.</p>
 </section>
 </section>
 
