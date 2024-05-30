@@ -178,3 +178,8 @@ My piece is showing the number of breakouts on my face as I process in my acne t
 The authors used pearson correlation tests to find correlations between number of social learning sources and other variables such as gardening consistency and irrigation methods.They also used Man-Whitney U tests for comparing social capital scores of community gardeners to home gardeners. The figure I described in Homework two is below:
 
 ![](images/clipboard-1690620942.png)
+
+### 
+**b. Visual Clarity**
+
+The authors' figures showed percentages and frequencies of various variables they collected data on, but they did not, for example, show differences in means between populations (community gardeners vs home gardeners) or show the underlying data. Within the figures that they did present however, the data is easy to interpret. Categories are clearly labeled and their values are easy to understand, however it would make more sense for frequency to be on the y axis instead of along the x axis, as it is the dependent variable.
