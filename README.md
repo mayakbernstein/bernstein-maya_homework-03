@@ -28,7 +28,7 @@
 
 # Rendered output
 
-The rendered .html for this repo is [here](https://an-bui.github.io/ENVS193DS_workshop-08/code/homework-starter-doc_KEY.html).
+The rendered .html for my repo is [here](https://htmlpreview.github.io/?https://github.com/mayakbernstein/bernstein-maya_homework-03/blob/main/code/ENVS193DS_homework-03.html).
 
 # For full credit
 
