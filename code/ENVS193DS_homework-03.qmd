@@ -9,7 +9,7 @@ execute: # for all code chunks
     message: FALSE # do not display messages
 ---
 
-## Link to Repository *add link*
+### [Link To Repository](https://github.com/mayakbernstein/bernstein-maya_homework-03.git)
 
 ```{r}
 # general use
@@ -32,9 +32,9 @@ library(gtsummary)
 library(flextable)
 library(modelsummary)
 
-drought_exp <- read_xlsx(path = here("data", 
+drought_exp <- read_xlsx(path = here("data", #specifying path
                                      "Valliere_etal_EcoApps_Data.xlsx"),
-                         sheet = "First Harvest")
+                         sheet = "First Harvest") 
 ```
 
 ```{r}
