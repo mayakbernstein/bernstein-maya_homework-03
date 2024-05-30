@@ -144,7 +144,7 @@ My data is all about tracking how my new skincare routine is affecting the numbe
 #first need to read in my CSV
 Breakouts <- read_csv ("../data/BreakoutsMay30.csv")
 
-ggplot()+ #create figure
+base_plot <- ggplot()+ #create figure
   geom_col(data = Breakouts, #ata is from breakout file, figure type is a bar chart
                  aes(x = treatment_day, # x axis is treatment day 
                      y = pimples, # y axis is number of breakouts 
@@ -165,4 +165,4 @@ theme(legend.position = "top") +
 
 ```
 
-### 
+### ![](images/clipboard-2891628687.png)
