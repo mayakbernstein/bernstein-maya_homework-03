@@ -66,19 +66,21 @@ drought_exp_clean <- drought_exp %>%
 
 ### a. Table of Models
 
-|                                                                                                                                                                                                                                                                                                                                                                       |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |------------------------------------------------------------------------|
-| **Table 1: Comparison of Regression Models**. This table shows the five regression models used to predict total biomass (g): "Null," "Model 1," "Model 2," "Model 3," and "Model 4." Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model. |
+| **Table 1: Comparison of Regression Models**. This table shows the five regression models used to predict total biomass (g): "Null," "Model 1," "Model 2," "Model 3," and "Model 4." Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model. The last two rows indicate AICc and Δ AIC for each model. |
 
-| Predictors                                              | Null | Model 1 | Model 2 | Model 3 | Model 4 |
+| Predictors                                              | Null  | Model 1 | Model 2 | Model 3 | Model 4 |
 |------------|------------|------------|------------|------------|------------|
-| **Specific Leaf Area** (mm^2^/g)                        |      | ✓       | ✓       | ✓       |         |
-| **Watering Level (well watered vs drought conditions)** |      | ✓       | ✓       |         | ✓       |
-| **Species Type**                                        |      | ✓       |         | ✓       | ✓       |
+| **Specific Leaf Area** (mm^2^/g)                        |       | ✓       | ✓       | ✓       |         |
+| **Watering Level (well watered vs drought conditions)** |       | ✓       | ✓       |         | ✓       |
+| **Species Type**                                        |       | ✓       |         | ✓       | ✓       |
+| **AICc**                                                | -75.0 | -153.8  | -95.8   | -124.1  | -156.2  |
+| **Δ AIC**                                               | 81.22 | 2.44    | 60.37   | 32.12   | 0.000   |
 
 ### b. Statistical Methods
 
-To examine the influence of specific leaf area (mm^2^/g), watering level (well watered vs drought stressed, and species type on total biomass, I compared the five models outlined in the table above in order to determine which predictor variables best influence total biomass. I used the `model.sel` function from the `MuMIn` package which uses corrected (for smaller sample size) Akaike Information Criterion (AICc) to rank the provided models according to their AICc values. Model 4, which looks at total biomass as a function of water treatment and species, has the lowest AICc value (-156.2) and highest weight (0.772), indicating it is the best model among those compared. To evaluate linear model assumptions, I used the `plot` for each model to evaluate the diagnostic plots for residuals vs fitted values, the Normal Q-Q plot, the Scale-Location plot, and the residuals vs. leverage plot. These visual checks confirmed the models were homoscedastic, normally distributed, and linear.
+To examine the influence of specific leaf area (mm^2^/g), watering level (well watered vs drought stressed, and species type on total biomass, I compared the five models outlined in the table above in order to determine which predictor variables best influence total biomass. The null model uses no predictor variables and represents a scenario in which none of the variables predict total biomass. Model 1 is a saturated model which uses all of the predictor variables. I used the `model.sel` function from the `MuMIn` package which uses corrected (for smaller sample size) Akaike Information Criterion (AICc) to rank the provided models according to their AICc values. Model 4, which looks at total biomass as a function of water treatment and species, has the lowest AICc value (-156.2) and highest weight (0.772), indicating it is the best model among those compared. To evaluate linear model assumptions, I used the `plot` function for each model to evaluate the diagnostic plots for residuals vs fitted values, the Normal Q-Q plot, the Scale-Location plot, and the residuals vs. leverage plot. These visual checks confirmed the models were homoscedastic, normally distributed, and linear.
 
 ### c. Visualization
 
@@ -111,8 +113,15 @@ ggplot() +
              aes(x = water_treatment, # x axis is water treatment
                  y = predicted, #y axis is predicted total biomass (g)
                  color = water_treatment), #color based on water treatment 
-             size = 2.5,  # Making model prediction points larger for visibility
-             shape = 17) +  # Changing shape to triangle for better differentiation
+             size = 1.5,  # Making model prediction points larger for visibility
+             shape = 19) +  # Changing shape to triangle for better differentiation
+  geom_errorbar(data = model_preds_for_plotting,  # Adding error bars
+                aes(x = water_treatment, 
+                    ymin = conf.low,  # lower CI bound
+                    ymax = conf.high,  # upper CI bound
+                    color = water_treatment), #fill color based on water treatment
+                width = 0.1,  # Width of the error bars
+                size = 0.5) +  # Thickness of the error bars
   # Cleaner theme
   theme_classic() +
 
@@ -126,7 +135,7 @@ ggplot() +
   facet_wrap(~species_name)
 ```
 
-**Figure 1: Well-watered plants tend to have higher total biomass than drought stressed plants.** The above graph shows differences in total plant biomass between different water treatment types and species. The lighter circular points indicate underlying data while the triangular points indicate the model prediction values for each group. Among all species, well watered groups have higher predicted biomass than drought-stressed groups. Species type also influences predicted total biomass.
+**Figure 1: Well-watered plants tend to have higher total biomass than drought stressed plants.** The above graph shows differences in total plant biomass between different water treatment types and species. The lighter circular points indicate underlying data while the triangular points indicate the model prediction values for each group. Among all species, well watered groups have higher predicted biomass than drought-stressed groups. Species type also influences predicted total biomass. Data from [Valliere, Zhang, Sharifi, Rundel, 2019](https://doi.org/10.5061/dryad.v0861f7).
 
 ### e. Results
 
@@ -149,25 +158,28 @@ My data is all about tracking how my new skincare routine is affecting the numbe
 Breakouts <- read_csv ("../data/BreakoutsMay30.csv")
 
 base_plot <- ggplot()+ #create figure
-  geom_col(data = Breakouts, #ata is from breakout file, figure type is a bar chart
+  geom_col(data = Breakouts, #ata is from breakout file, figure type = bar chart
                  aes(x = treatment_day, # x axis is treatment day 
                      y = pimples, # y axis is number of breakouts 
                      fill = followed_plan))+
-    scale_fill_manual(values = c("Yes" = "pink", "No" = "skyblue"))+ # Specify colors
+    scale_fill_manual(values = c("Yes" = "pink", "No" = "skyblue"))+ # colors
 
 # Cleaner theme
   theme_classic() +
 
 # Add labels 
-  labs(x = "Treatment Day", y = "Number of Breakouts", title = "Breakouts Throughout my Treatment", fill = "Followed Treatment Plan") +
+  labs(x = "Treatment Day", 
+       y = "Number of Breakouts", 
+       title = "Breakouts Throughout my Treatment", 
+       fill = "Followed Treatment Plan") +
   
 # Remove legend
 theme(legend.position = "top") +
  # Remove space between x-axis and bars
   scale_y_continuous(expand = c(0, 0))+
   scale_x_continuous(expand = c(0,0)) 
-# note: not actually showing this output here because I took it and edited it further
-# in canva, which is the image you see below! 
+# note: not actually showing this output here because I took it and edited 
+# it furtherin canva, which is the image you see below! 
 ```
 
 ### ![](images/clipboard-3676468120.png)

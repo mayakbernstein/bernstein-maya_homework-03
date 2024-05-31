@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><strong>Table 1: Comparison of Regression Models</strong>. This table shows the five regression models used to predict total biomass (g): “Null,” “Model 1,” “Model 2,” “Model 3,” and “Model 4.” Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model.</td>
+<td><strong>Table 1: Comparison of Regression Models</strong>. This table shows the five regression models used to predict total biomass (g): “Null,” “Model 1,” “Model 2,” “Model 3,” and “Model 4.” Each column is a separate model. The header row indicates the predictor variable in question and check marks in the rows indicate that predictor variable was used in the model. The last two rows indicate AICc and Δ AIC for each model.</td>
 </tr>
 </tbody>
 </table>
@@ -217,12 +217,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>✓</td>
 </tr>
+<tr class="even">
+<td><strong>AICc</strong></td>
+<td>-75.0</td>
+<td>-153.8</td>
+<td>-95.8</td>
+<td>-124.1</td>
+<td>-156.2</td>
+</tr>
+<tr class="odd">
+<td><strong>Δ AIC</strong></td>
+<td>81.22</td>
+<td>2.44</td>
+<td>60.37</td>
+<td>32.12</td>
+<td>0.000</td>
+</tr>
 </tbody>
 </table>
 </section>
 <section id="b.-statistical-methods" class="level3">
 <h3 class="anchored" data-anchor-id="b.-statistical-methods">b. Statistical Methods</h3>
-<p>To examine the influence of specific leaf area (mm<sup>2</sup>/g), watering level (well watered vs drought stressed, and species type on total biomass, I compared the five models outlined in the table above in order to determine which predictor variables best influence total biomass. I used the <code>model.sel</code> function from the <code>MuMIn</code> package which uses corrected (for smaller sample size) Akaike Information Criterion (AICc) to rank the provided models according to their AICc values. Model 4, which looks at total biomass as a function of water treatment and species, has the lowest AICc value (-156.2) and highest weight (0.772), indicating it is the best model among those compared. To evaluate linear model assumptions, I used the <code>plot</code> for each model to evaluate the diagnostic plots for residuals vs fitted values, the Normal Q-Q plot, the Scale-Location plot, and the residuals vs.&nbsp;leverage plot. These visual checks confirmed the models were homoscedastic, normally distributed, and linear.</p>
+<p>To examine the influence of specific leaf area (mm<sup>2</sup>/g), watering level (well watered vs drought stressed, and species type on total biomass, I compared the five models outlined in the table above in order to determine which predictor variables best influence total biomass. The null model uses no predictor variables and represents a scenario in which none of the variables predict total biomass. Model 1 is a saturated model which uses all of the predictor variables. I used the <code>model.sel</code> function from the <code>MuMIn</code> package which uses corrected (for smaller sample size) Akaike Information Criterion (AICc) to rank the provided models according to their AICc values. Model 4, which looks at total biomass as a function of water treatment and species, has the lowest AICc value (-156.2) and highest weight (0.772), indicating it is the best model among those compared. To evaluate linear model assumptions, I used the <code>plot</code> function for each model to evaluate the diagnostic plots for residuals vs fitted values, the Normal Q-Q plot, the Scale-Location plot, and the residuals vs.&nbsp;leverage plot. These visual checks confirmed the models were homoscedastic, normally distributed, and linear.</p>
 </section>
 <section id="c.-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="c.-visualization">c.&nbsp;Visualization</h3>
@@ -254,24 +270,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> water_treatment, <span class="co"># x axis is water treatment</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> predicted, <span class="co">#y axis is predicted total biomass (g)</span></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> water_treatment), <span class="co">#color based on water treatment </span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>,  <span class="co"># Making model prediction points larger for visibility</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span>  <span class="co"># Changing shape to triangle for better differentiation</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cleaner theme</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add labels </span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Water Treatment"</span>, <span class="at">y =</span> <span class="st">"Total Biomass (mm2/g)"</span>, <span class="at">title =</span> <span class="st">"Model Predictions vs. Data by Species and Watering Conditions"</span>) <span class="sc">+</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove legend</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating different panels for species</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">1.5</span>,  <span class="co"># Making model prediction points larger for visibility</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">19</span>) <span class="sc">+</span>  <span class="co"># Changing shape to triangle for better differentiation</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> model_preds_for_plotting,  <span class="co"># Adding error bars</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> water_treatment, </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymin =</span> conf.low,  <span class="co"># lower CI bound</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> conf.high,  <span class="co"># upper CI bound</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color =</span> water_treatment), <span class="co">#fill color based on water treatment</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.1</span>,  <span class="co"># Width of the error bars</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span>  <span class="co"># Thickness of the error bars</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Cleaner theme</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add labels </span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Water Treatment"</span>, <span class="at">y =</span> <span class="st">"Total Biomass (mm2/g)"</span>, <span class="at">title =</span> <span class="st">"Model Predictions vs. Data by Species and Watering Conditions"</span>) <span class="sc">+</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove legend</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating different panels for species</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ENVS193DS_homework-03_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Figure 1: Well-watered plants tend to have higher total biomass than drought stressed plants.</strong> The above graph shows differences in total plant biomass between different water treatment types and species. The lighter circular points indicate underlying data while the triangular points indicate the model prediction values for each group. Among all species, well watered groups have higher predicted biomass than drought-stressed groups. Species type also influences predicted total biomass.</p>
+<p><strong>Figure 1: Well-watered plants tend to have higher total biomass than drought stressed plants.</strong> The above graph shows differences in total plant biomass between different water treatment types and species. The lighter circular points indicate underlying data while the triangular points indicate the model prediction values for each group. Among all species, well watered groups have higher predicted biomass than drought-stressed groups. Species type also influences predicted total biomass. Data from <a href="https://doi.org/10.5061/dryad.v0861f7">Valliere, Zhang, Sharifi, Rundel, 2019</a>.</p>
 </section>
 <section id="e.-results" class="level3">
 <h3 class="anchored" data-anchor-id="e.-results">e. Results</h3>
@@ -295,27 +318,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Breakouts <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"../data/BreakoutsMay30.csv"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>base_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()<span class="sc">+</span> <span class="co">#create figure</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">data =</span> Breakouts, <span class="co">#ata is from breakout file, figure type is a bar chart</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">data =</span> Breakouts, <span class="co">#ata is from breakout file, figure type = bar chart</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> treatment_day, <span class="co"># x axis is treatment day </span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> pimples, <span class="co"># y axis is number of breakouts </span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fill =</span> followed_plan))<span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>))<span class="sc">+</span> <span class="co"># Specify colors</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>))<span class="sc">+</span> <span class="co"># colors</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaner theme</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels </span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Treatment Day"</span>, <span class="at">y =</span> <span class="st">"Number of Breakouts"</span>, <span class="at">title =</span> <span class="st">"Breakouts Throughout my Treatment"</span>, <span class="at">fill =</span> <span class="st">"Followed Treatment Plan"</span>) <span class="sc">+</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove legend</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a> <span class="co"># Remove space between x-axis and bars</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))<span class="sc">+</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Treatment Day"</span>, </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Breakouts"</span>, </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Breakouts Throughout my Treatment"</span>, </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Followed Treatment Plan"</span>) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove legend</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a> <span class="co"># Remove space between x-axis and bars</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># note: not actually showing this output here because I took it and edited </span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># it furtherin canva, which is the image you see below! </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"><img src="images/clipboard-2891628687.png" class="img-fluid"></h3>
+<h3 class="anchored" data-anchor-id="section"><img src="images/clipboard-3676468120.png" class="img-fluid"></h3>
 </section>
 <section id="d.-artistic-statement" class="level3">
 <h3 class="anchored" data-anchor-id="d.-artistic-statement">d.&nbsp;Artistic Statement</h3>
